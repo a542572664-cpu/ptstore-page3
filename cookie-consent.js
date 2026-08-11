@@ -241,6 +241,18 @@
     return true;
   };
 
+  document.addEventListener("click", function (event) {
+    var whatsappLink = event.target.closest([
+      'a[href*="wa.me/"]',
+      'a[href*="api.whatsapp.com/"]',
+      'a[href*="web.whatsapp.com/"]'
+    ].join(", "));
+
+    if (whatsappLink && marketingAllowed && pixelInitialized && window.fbq) {
+      window.fbq("track", "Contact");
+    }
+  });
+
   function initializeConsent() {
     renderConsentDialog();
     var preference = readPreference();
